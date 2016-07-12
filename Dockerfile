@@ -19,3 +19,31 @@ RUN echo '10.0.70.31 rbrepo.redborder.lan' | tee --append /etc/hosts; \
     slang-devel         \
     libcmocka-devel;    \
   yum clean all
+
+# Install dependencies from Redborder repo
+RUN echo '10.0.70.31 rbrepo.redborder.lan' | tee --append /etc/hosts; \
+  rpm -ivh http://rbrepo.redborder.lan/redBorder/rbrepo-1.0.0-1.el7.rb.noarch.rpm; \
+  yum install -y \
+    expat-devel         \
+    ncurses-devel       \
+    libpsl-devel        \
+    libev-devel         \
+    zlib-devel          \
+    libmicrohttpd-devel \
+    libcurl-devel       \
+    librd-devel         \
+    librdkafka-devel    \
+    jansson-devel       \
+    yajl-devel;         \
+  yum clean all
+
+  # Install devtoolset-4
+  RUN yum install -y centos-release-scl --disablerepo=rbrepo
+  RUN yum install -y --disablerepo=rbrepo \
+      devtoolset-4-gcc        \
+      devtoolset-4-valgrind;  \
+    yum clean all
+
+  # Install RPMs
+  ADD rpms/ /rpms/
+  RUN rpm -i /rpms/*.rpm
