@@ -19,3 +19,34 @@ RUN echo '10.0.70.31 rbrepo.redborder.lan' | tee --append /etc/hosts; \
     slang-devel         \
     libcmocka-devel;    \
   yum clean all
+
+# Install freeradius dependencies
+RUN echo '10.0.70.31 rbrepo.redborder.lan' | tee --append /etc/hosts; \
+  yum install -y \
+    openssl-devel 	\
+    libgcrypt		\
+    libtool-ltdl-devel	\
+    krb5-devel		\
+    zlib		\
+    libcurl-devel	\
+    slang-devel         \
+    librd-devel         \
+    rbutils-devel       \
+    librdkafka-devel    \
+    yajl                \
+    yajl-devel          \
+    python-setuptools	\
+    gcc-c++		\
+    git;		\
+  yum clean all
+
+# kafkacat:
+
+RUN git clone https://github.com/anarey/kafkacat.git --branch freeradius-docker
+WORKDIR /kafkacat
+RUN sh ./bootstrap.sh
+
+# Pycheckjson
+WORKDIR /pycheckjson
+RUN git clone https://github.com/anarey/pycheckjson.git .
+RUN python setup.py install
