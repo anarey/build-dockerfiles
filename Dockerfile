@@ -37,6 +37,7 @@ RUN echo '10.0.70.31 rbrepo.redborder.lan' | tee --append /etc/hosts; \
     yajl-devel          \
     python-setuptools	\
     gcc-c++		\
+    automake		\
     git;		\
   yum clean all
 
@@ -50,3 +51,5 @@ RUN sh ./bootstrap.sh
 WORKDIR /pycheckjson
 RUN git clone https://github.com/anarey/pycheckjson.git .
 RUN python setup.py install
+
+WORKDIR /app
