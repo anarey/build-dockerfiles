@@ -38,6 +38,8 @@ RUN echo '10.0.70.31 rbrepo.redborder.lan' | tee --append /etc/hosts; \
     python-setuptools	\
     gcc-c++		\
     automake		\
+    qt-devel		\
+    openssl		\
     git;		\
   yum clean all
 
