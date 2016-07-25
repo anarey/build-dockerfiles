@@ -54,4 +54,16 @@ WORKDIR /pycheckjson
 RUN git clone https://github.com/anarey/pycheckjson.git .
 RUN python setup.py install
 
+WORKDIR /callgrind
+RUN git clone https://github.com/anarey/callgrind_tools .
+RUN git clone https://github.com/icefox/rpp.git rpp
+
+WORKDIR /callgrind/rpp
+RUN qmake-qt4 -recursive
+RUN make
+#RUN make
+
+WORKDIR /callgrind
+RUN qmake-qt4 && make
+
 WORKDIR /app
